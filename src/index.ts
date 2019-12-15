@@ -1,3 +1,3 @@
-import { getTopWindow } from './frames';
+import { getRootWindow } from './frames';
 
-console.log(`Get Top${getTopWindow(window)}`);
+console.log(`Get Top${getRootWindow(window)}`);
