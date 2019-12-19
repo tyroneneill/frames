@@ -1,4 +1,3 @@
-
 /**
  * Find the root window, the root window being that of the highest association.
  * Given the example of an iframe within an iframe inside a popup window owned
@@ -12,32 +11,32 @@
  */
 export function getRootWindow(fromContext: Window = window,
                               accessible: boolean = false): Window {
-  let current: Window = fromContext;
-  while (current && current.opener || current !== current.parent) {
-    const target = current.opener || current.parent;
-    // Short-circuit if unaccessible window and checking accessiblility.
-    if (accessible && testWindowAccessible(target) === false) {
-      return current;
+    let current: Window = fromContext;
+    while (current && current.opener || current !== current.parent) {
+        const target = current.opener || current.parent;
+        // Short-circuit if inaccessible window and flagged for cross-vm checking.
+        if (accessible && testWindowAccessible(target) === false) {
+            return current;
+        }
+        current = target;
     }
-    current = target;
-  }
-  return current;
+    return current;
 }
 
 export function getWindowFromElement(element: HTMLElement): Window {
-  const doc: Document = element.ownerDocument;
-  return doc.defaultView || (<any>doc).parentWindow;
+    const doc: Document = element.ownerDocument;
+    return doc.defaultView || (<any>doc).parentWindow;
 }
 
-export function ownerIsIframe(window: Window): boolean {
-  return window.frameElement !== null;
+export function isFrame(window: Window): boolean {
+    return window.frameElement !== null;
 }
 
 export function testWindowAccessible(window: Window): boolean {
-  try {
-    window.document;
-    return true;
-  } catch (err) {
-    return false;
-  }
+    try {
+        window.document;
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
