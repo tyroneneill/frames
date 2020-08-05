@@ -7,7 +7,7 @@ export const getFrameRate = (update: (rate: number) => void,
         last = timestamp;
         if (position >= 1000) {
             update(Math.floor(1000 / (position / count)));
-            position = last = count;
+            position = last = count = 0;
         }
     }, rAf);
 };
